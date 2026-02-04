@@ -90,6 +90,62 @@ The `.sppkg` file will be generated in `sharepoint/solution/`
 2. Deploy the solution
 3. Add the web part to a SharePoint page
 
+## 📋 SharePoint Configuration
+
+To run this solution, you must create the following SharePoint lists with these **exact internal field names**:
+
+### 1. Main Tasks List (`Task Tracking System`)
+
+| Field Display Name | Internal Name | Type |
+|-------------------|---------------|------|
+| Title | `Title` | Single line of text |
+| Task Description | `Task_x0020_Description` | Multiple lines of text |
+| Start Date | `TaskStartDate` | Date and Time |
+| Due Date | `TaskDueDate` | Date and Time |
+| Actual End Date | `Task_x0020_End_x0020_Date` | Date and Time |
+| Status | `Status` | Choice |
+| Assigned To | `TaskAssignedTo` | Person or Group |
+| Project | `Project` | Single line of text |
+| Departments | `Departments` | Single line of text |
+| SMT Year | `SMTYear` | Single line of text |
+| SMT Month | `SMTMonth` | Choice |
+| Business Unit | `BusinessUnit` | Choice |
+
+### 2. Sub Tasks List (`Task Tracking System User`)
+
+| Field Display Name | Internal Name | Type |
+|-------------------|---------------|------|
+| Title | `Title` | Single line of text |
+| Main Task ID | `Admin_Job_ID` | Number |
+| Task Title | `Task_Title` | Single line of text |
+| Task Description | `Task_Description` | Multiple lines of text |
+| Task Due Date | `TaskDueDate` | Date and Time |
+| Assigned To | `TaskAssignedTo` | Person or Group |
+| Task Status | `TaskStatus` | Choice |
+| User Remarks | `User_Remarks` | Multiple lines of text |
+| Category | `Category` | Single line of text |
+| Parent Subtask ID | `ParentSubtaskId` | Number |
+
+### 3. Correspondence List (`Task Correspondence`)
+
+| Field Display Name | Internal Name | Type |
+|-------------------|---------------|------|
+| Subject | `Title` | Single line of text |
+| Message Body | `MessageBody` | Multiple lines of text |
+| Sender | `Sender` | Person or Group |
+| Parent Task ID | `ParentTaskID` | Number |
+| Child Task ID | `ChildTaskID` | Number |
+
+### 4. Workflows List (`Workflows`)
+
+| Field Display Name | Internal Name | Type |
+|-------------------|---------------|------|
+| Title | `Title` | Single line of text |
+| Workflow JSON | `WorkflowJson` | Multiple lines of text (Plain text) |
+| Is Active | `IsActive` | Yes/No (Boolean) |
+
+> **Pro Tip**: Create fields with the **Internal Name** first (no spaces) to ensure SPFx matches fields correctly, then rename them to the Display Name for users.
+
 ## 📂 Project Structure
 
 ```
@@ -159,4 +215,4 @@ This project is provided **AS IS** under the MIT License.
 
 **⭐ If you find this project useful, please consider giving it a star on GitHub!**
 
-*Created with ❤️ by **Anbarasan**
+*Created with ❤️ by Anbarasan*
