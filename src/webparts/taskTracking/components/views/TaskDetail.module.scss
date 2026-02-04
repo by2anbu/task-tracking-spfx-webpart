@@ -1,0 +1,305 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+// --- Modern Design Tokens ---
+$primary-gradient: linear-gradient(135deg, #0078d4 0%, #00b0ff 100%);
+$success-gradient: linear-gradient(135deg, #107c10 0%, #00cc6a 100%);
+$warning-gradient: linear-gradient(135deg, #ffb900 0%, #ff8c00 100%);
+$danger-gradient: linear-gradient(135deg, #d13438 0%, #a80000 100%);
+$hold-gradient: linear-gradient(135deg, #7a7a7a 0%, #3d3d3d 100%);
+
+$card-bg: rgba(255, 255, 255, 0.75);
+$card-border: 1px solid rgba(255, 255, 255, 0.4);
+$shadow-soft: 0 10px 40px rgba(0, 0, 0, 0.04);
+$shadow-hover: 0 20px 50px rgba(0, 0, 0, 0.12);
+$glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.9) 0%, rgba(240, 248, 255, 0.7) 100%);
+$accent-gradient: linear-gradient(135deg, #0078d4 0%, #005a9e 100%);
+
+.taskDetailContainer {
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #323130;
+    padding: 10px;
+    animation: fadeIn 0.4s ease-out;
+}
+
+// --- Glassmorphism Card ---
+.glassCard {
+    background: $card-bg;
+    backdrop-filter: blur(12px);
+    border: $card-border;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: $shadow-soft;
+    margin-bottom: 20px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: $shadow-hover;
+    }
+}
+
+// --- Header Section ---
+.headerArea {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+        background: linear-gradient(90deg, #111827, #4b5563);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .statusBadge {
+        padding: 6px 16px;
+        border-radius: 20px;
+        font-size: 13px;
+        font-weight: 700;
+        color: white;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+}
+
+// --- Info Grid ---
+.infoGrid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 16px;
+    margin-bottom: 20px;
+
+    .infoItem {
+        padding: 12px;
+        background: rgba(255, 255, 255, 0.4);
+        border-radius: 8px;
+        border: 1px solid rgba(0, 0, 0, 0.03);
+
+        .label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #6b7280;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .value {
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+        }
+    }
+}
+
+// --- Hierarchy View ---
+.hierarchyRow {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: relative;
+
+    .connector {
+        position: absolute;
+        left: -15px;
+        top: -50%;
+        height: 100%;
+        width: 2px;
+        background: #e0e0e0;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            width: 15px;
+            height: 2px;
+            background: #e0e0e0;
+        }
+    }
+
+    .title {
+        font-weight: 600;
+        color: #323130;
+    }
+
+    .depth-indicator {
+        color: #999;
+        margin-right: 8px;
+        font-family: monospace;
+        font-weight: bold;
+    }
+}
+
+// --- Status Pillars ---
+.statusPill {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 700;
+    color: white;
+    min-width: 90px;
+    justify-content: center;
+
+    &.completed {
+        background: $success-gradient;
+    }
+
+    &.inProgress {
+        background: $primary-gradient;
+    }
+
+    &.notStarted {
+        background: $warning-gradient;
+    }
+
+    &.onHold {
+        background: $danger-gradient;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes scaleIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.02);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+// --- Animation Utility Classes ---
+.animateFadeIn {
+    animation: fadeIn 0.5s ease forwards;
+}
+
+.animateSlideUp {
+    animation: slideUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animateScaleIn {
+    animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.stagger1 {
+    animation-delay: 0.1s;
+}
+
+.stagger2 {
+    animation-delay: 0.2s;
+}
+
+.stagger3 {
+    animation-delay: 0.3s;
+}
+
+.stagger4 {
+    animation-delay: 0.4s;
+}
+
+// --- Refined Elements ---
+.premiumCard {
+    background: $glass-gradient;
+    border-radius: 16px;
+    border: 1px solid rgba(0, 120, 212, 0.15);
+    padding: 24px;
+    box-shadow: 0 12px 24px rgba(0, 90, 158, 0.08);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 36px rgba(0, 90, 158, 0.12);
+        border-color: rgba(0, 120, 212, 0.3);
+    }
+}
+
+.chatBubbleCentered {
+    align-self: center;
+    width: 85%;
+    background: white;
+    padding: 18px 24px;
+    border-radius: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f0f4f8;
+    position: relative;
+    transition: all 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+        transform: scale(1.01);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: -2px;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: $accent-gradient;
+        border-radius: 20px 0 0 20px;
+    }
+}
+
+// --- Custom DetailsList Overrides ---
+.customList {
+    :global {
+        .ms-DetailsRow {
+            border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+            background: transparent !important;
+
+            &:hover {
+                background: rgba(0, 120, 212, 0.04) !important;
+            }
+        }
+
+        .ms-DetailsHeader {
+            background: rgba(243, 242, 241, 0.5);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        }
+    }
+}

@@ -1,0 +1,14 @@
+export declare const actions: string;
+export declare const btnPrimary: string;
+export declare const btnSecondary: string;
+export declare const canvas: string;
+export declare const container: string;
+export declare const customNode: string;
+export declare const header: string;
+export declare const nodeIcon: string;
+export declare const nodeLabel: string;
+export declare const nodeTemplate: string;
+export declare const nodeTemplates: string;
+export declare const nodeType: string;
+export declare const sidebar: string;
+export declare const workflowDesigner: string;

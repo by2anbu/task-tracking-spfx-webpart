@@ -1,0 +1,328 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.notificationContainer {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    padding: 8px 12px;
+    border-radius: 12px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-right: 8px;
+
+    &:hover {
+        background: rgba(0, 120, 212, 0.08);
+        transform: translateY(-1px);
+
+        .bellIcon {
+            color: $ms-color-communicationPrimary;
+        }
+    }
+
+    &:active {
+        transform: scale(0.95);
+    }
+}
+
+.bellIcon {
+    font-size: 20px;
+    color: #323130;
+    transition: color 0.3s ease;
+}
+
+.bellPulse {
+    animation: pulse 2s infinite cubic-bezier(0.4, 0, 0.6, 1);
+    color: #d13438 !important;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    50% {
+        transform: scale(1.15);
+        opacity: 0.8;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.badge {
+    position: absolute;
+    top: 4px;
+    right: 6px;
+    background: linear-gradient(135deg, #ff5f6d, #d13438);
+    color: white;
+    border-radius: 50%;
+    min-width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 800;
+    border: 2px solid white;
+    box-shadow: 0 2px 8px rgba(209, 52, 56, 0.4);
+    pointer-events: none;
+    z-index: 10;
+    animation: badgeIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes badgeIn {
+    from {
+        transform: scale(0);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.callout {
+    width: 400px;
+    max-width: 90vw;
+    background: rgba(255, 255, 255, 0.8) !important;
+    backdrop-filter: blur(20px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.4) !important;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12),
+        0 0 0 1px rgba(0, 0, 0, 0.05) !important;
+    overflow: hidden;
+    margin-top: 12px !important;
+    animation: slideDown 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-10px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.header {
+    padding: 20px 24px;
+    background: rgba(255, 255, 255, 0.4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+
+    h3 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 800;
+        background: linear-gradient(135deg, #1e293b, #334155);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+}
+
+.headerActions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+
+    button {
+        font-size: 12px;
+        font-weight: 700;
+        color: #0078d4;
+        background: none;
+        border: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        padding: 4px 8px;
+        border-radius: 6px;
+
+        &:hover {
+            background: rgba(0, 120, 212, 0.05);
+            color: #005a9e;
+        }
+    }
+}
+
+.notificationList {
+    max-height: 480px;
+    overflow-y: auto;
+    padding: 12px;
+
+    &::-webkit-scrollbar {
+        width: 6px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+    }
+}
+
+.notificationItem {
+    padding: 16px;
+    border-radius: 16px;
+    margin-bottom: 8px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    position: relative;
+    overflow: hidden;
+    animation: staggeredFadeIn 0.5s ease backwards;
+
+    &:hover {
+        background: #f8fafc;
+        transform: translateX(4px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        border-color: rgba(0, 120, 212, 0.1);
+
+        .dismissBtn {
+            opacity: 1;
+        }
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        background: #d13438;
+        border-radius: 2px;
+        opacity: 0.8;
+    }
+}
+
+@keyframes staggeredFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@for $i from 1 through 10 {
+    .notificationItem:nth-child(#{$i}) {
+        animation-delay: #{$i * 0.08}s;
+    }
+}
+
+.itemHeader {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 6px;
+
+    strong {
+        font-size: 14px;
+        font-weight: 700;
+        color: #1e293b;
+    }
+}
+
+.dismissBtn {
+    opacity: 0.4;
+    transition: all 0.3s ease;
+    color: #94a3b8;
+
+    &:hover {
+        color: #ef4444;
+        transform: rotate(90deg);
+    }
+}
+
+.messageBody {
+    font-size: 13px;
+    color: #475569;
+    line-height: 1.5;
+    margin-bottom: 15px;
+    padding-bottom: 5px;
+    word-break: break-word;
+
+    // Remove line clamping so users can read the full message
+    display: block;
+    overflow: visible;
+}
+
+.metaInfo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .author {
+        font-size: 12px;
+        font-weight: 800;
+        color: #3b82f6;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+    }
+
+    .date {
+        font-size: 11px;
+        font-weight: 600;
+        color: #94a3b8;
+    }
+}
+
+.emptyState {
+    padding: 60px 24px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+
+    .emptyIcon {
+        font-size: 48px;
+        color: #10b981;
+        background: rgba(16, 185, 129, 0.1);
+        padding: 16px;
+        border-radius: 50%;
+        margin-bottom: 8px;
+        animation: bounce 2s infinite;
+    }
+
+    h4 {
+        margin: 0;
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #1e293b;
+    }
+
+    p {
+        margin: 0;
+        font-size: 13px;
+        color: #64748b;
+    }
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}

@@ -1,0 +1,358 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+* {
+  box-sizing: border-box;
+}
+
+// --- Ultra Modern Variables ---
+$bg-color: #f8f9fa;
+$card-bg: rgba(255, 255, 255, 0.95);
+$glass-border: 1px solid rgba(255, 255, 255, 0.5);
+$shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.02);
+$shadow-md: 0 10px 30px rgba(0, 0, 0, 0.04);
+$shadow-hover: 0 20px 40px rgba(0, 0, 0, 0.08);
+$primary-gradient: linear-gradient(135deg, #0078d4 0%, #00b0ff 100%);
+$success-gradient: linear-gradient(135deg, #107c10 0%, #00cc6a 100%);
+$warning-gradient: linear-gradient(135deg, #ffb900 0%, #ff8c00 100%);
+$danger-gradient: linear-gradient(135deg, #d13438 0%, #a80000 100%);
+$text-primary: #111827;
+$text-secondary: #6b7280;
+$font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+
+// --- Mixins ---
+@mixin glass-card {
+  background: $card-bg;
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 16px;
+  box-shadow: $shadow-md;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: $shadow-hover;
+  }
+}
+
+// --- Layout ---
+.modernDashboard {
+  background-color: $bg-color;
+  min-height: 100%;
+  padding: 32px;
+  font-family: $font-family;
+  color: $text-primary;
+  animation: fadeIn 0.6s ease-out;
+
+  // Grid Layout
+  display: grid;
+  grid-template-rows: auto auto 1fr; // Header, Stats, Main Content
+  gap: 32px;
+}
+
+// --- Header ---
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .greeting {
+    h1 {
+      font-size: 28px;
+      font-weight: 700;
+      margin: 0 0 4px 0;
+      background: linear-gradient(90deg, #1f2937, #4b5563);
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    p {
+      color: $text-secondary;
+      margin: 0;
+      font-size: 14px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    gap: 12px;
+  }
+}
+
+// --- Stats Row ---
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.statCard {
+  @include glass-card;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 140px;
+  position: relative;
+  overflow: hidden;
+
+  .statIcon {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+
+    &.iconBlue {
+      background: rgba(0, 120, 212, 0.1);
+      color: #0078d4;
+    }
+
+    &.iconGreen {
+      background: rgba(16, 124, 16, 0.1);
+      color: #107c10;
+    }
+
+    &.iconOrange {
+      background: rgba(255, 185, 0, 0.1);
+      color: #ff8c00;
+    }
+
+    &.iconRed {
+      background: rgba(168, 0, 0, 0.1);
+      color: #a80000;
+    }
+  }
+
+  .statLabel {
+    font-size: 14px;
+    font-weight: 600;
+    color: $text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .statValue {
+    font-size: 36px;
+    font-weight: 800;
+    margin: 8px 0;
+    color: $text-primary;
+  }
+
+  .statTrend {
+    font-size: 12px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &.positive {
+      color: #107c10;
+    }
+
+    &.negative {
+      color: #a80000;
+    }
+
+    &.neutral {
+      color: $text-secondary;
+    }
+  }
+}
+
+// --- Main Content Area ---
+.mainContent {
+  display: grid;
+  grid-template-columns: 2fr 1fr; // 66% - 33% split
+  gap: 32px;
+
+  >div {
+    min-width: 0; // CRITICAL: Prevents children (like DetailsList) from expanding the grid track
+  }
+
+  @media (max-width: 1024px) {
+    grid-template-columns: 1fr; // Stack on smaller screens
+  }
+}
+
+.sectionCard {
+  @include glass-card;
+  padding: 0; // Padding handled by children or inner containers
+  display: flex;
+  flex-direction: column;
+  min-height: 400px;
+
+  .cardHeader {
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      margin: 0;
+      font-size: 18px;
+      font-weight: 600;
+      color: $text-primary;
+    }
+  }
+
+  .cardBody {
+    padding: 24px;
+    flex: 1;
+  }
+}
+
+// --- Smart Task Board ---
+.boardContainer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.viewToggle {
+  display: flex;
+  gap: 8px;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 4px;
+  border-radius: 8px;
+  align-self: flex-start;
+  margin-bottom: 16px;
+
+  button {
+    border: none;
+    background: transparent;
+    padding: 6px 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-secondary;
+    transition: all 0.2s;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.5);
+    }
+
+    &.active {
+      background: white;
+      color: $text-primary;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+  }
+}
+
+.kanbanBoard {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  padding-bottom: 12px;
+
+  .kanbanColumn {
+    flex: 1;
+    min-width: 280px;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    h4 {
+      margin: 0 0 12px 0;
+      font-size: 14px;
+      color: $text-secondary;
+      display: flex;
+      justify-content: space-between;
+
+      .count {
+        background: rgba(0, 0, 0, 0.05);
+        padding: 2px 8px;
+        border-radius: 12px;
+        font-size: 11px;
+      }
+    }
+  }
+}
+
+.kanbanCard {
+  @include glass-card;
+  padding: 12px;
+  margin-bottom: 12px;
+  cursor: grab;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: white;
+
+  &:hover {
+    border-color: #0078d4;
+  }
+
+  .cardMeta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: $text-secondary;
+    margin-top: 8px;
+  }
+}
+
+// --- Status Badge (Modern Pill) ---
+.statusPill {
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+
+  &::before {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+  }
+
+  &.completed {
+    background: rgba(16, 124, 16, 0.1);
+    color: #107c10;
+
+    &::before {
+      background: #107c10;
+    }
+  }
+
+  &.inProgress {
+    background: rgba(0, 120, 212, 0.1);
+    color: #0078d4;
+
+    &::before {
+      background: #0078d4;
+    }
+  }
+
+  &.open {
+    background: rgba(107, 114, 128, 0.1);
+    color: #374151;
+
+    &::before {
+      background: #374151;
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "task-tracking-system-client-side-solution",
+    "id": "b758bedd-7902-4a1b-94cb-acf177ffef6d",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.17.4"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "task-tracking-system description"
+      },
+      "longDescription": {
+        "default": "task-tracking-system description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "task-tracking-system Feature",
+        "description": "The feature that activates elements of the task-tracking-system solution.",
+        "id": "2d82bfd1-c0d6-4785-bd86-40e4e5013586",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/task-tracking-system.sppkg"
+  }
+}

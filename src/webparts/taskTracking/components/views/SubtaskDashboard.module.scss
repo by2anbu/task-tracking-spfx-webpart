@@ -1,0 +1,274 @@
+.subtaskDashboard {
+    padding: 24px;
+    background-color: #f8fafc;
+    min-height: 100%;
+    font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    color: #1e293b;
+
+    // --- Animations ---
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    @keyframes pulse {
+        0% {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        50% {
+            transform: scale(1.1);
+            opacity: 0.7;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .animatedFadeIn {
+        animation: fadeIn 0.4s ease-out forwards;
+    }
+
+    // --- Header ---
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 32px;
+
+        h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+            background: linear-gradient(135deg, #0f172a 0%, #334155 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    }
+
+    // --- Controls ---
+    .controls {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+        align-items: flex-end;
+    }
+
+    // --- Views ---
+    .viewContainer {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    // --- Table Styles ---
+    .customTable {
+        width: 100%;
+        border-collapse: collapse;
+
+        th {
+            background: #f1f5f9;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 14px;
+            color: #64748b;
+            border-bottom: 2px solid #e2e8f0;
+        }
+
+        td {
+            padding: 16px;
+            border-bottom: 1px solid #f1f5f9;
+            font-size: 14px;
+            vertical-align: middle;
+            transition: background 0.2s ease;
+        }
+
+        tr:hover td {
+            background-color: #f8fafc;
+        }
+    }
+
+    // --- Card Styles ---
+    .cardGrid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 24px;
+        padding: 24px;
+    }
+
+    .taskCard {
+        background: #ffffff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        padding: 20px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        position: relative;
+        overflow: hidden;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+        }
+
+        .cardHeader {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .priorityTag {
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+    }
+
+    // --- Progress Indicators ---
+    .progressWrapper {
+        margin-top: 12px;
+
+        .progressBar {
+            height: 8px;
+            background: #e2e8f0;
+            border-radius: 4px;
+            overflow: hidden;
+            position: relative;
+
+            .progressFill {
+                height: 100%;
+                transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+                border-radius: 4px;
+                background: linear-gradient(90deg, #3b82f6 0%, #60a5fa 100%);
+            }
+        }
+
+        .progressLabel {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            font-size: 12px;
+            color: #64748b;
+        }
+    }
+
+    // --- Status Badges ---
+    .statusBadge {
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+
+        &.completed {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        &.inProgress {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        &.notStarted {
+            background: #f1f5f9;
+            color: #475569;
+        }
+
+        &.overdue {
+            background: #fee2e2;
+            color: #991b1b;
+        }
+    }
+
+    // --- Overdue Alert ---
+    .overdueAlert {
+        color: #ef4444;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        font-weight: 600;
+
+        i {
+            animation: pulse 1.5s infinite;
+        }
+    }
+
+    // --- Gantt Chart Placeholder ---
+    .ganttContainer {
+        padding: 24px;
+        overflow-x: auto;
+    }
+}
+
+// Dark Mode Support
+:global(.body_dark) {
+    .subtaskDashboard {
+        background-color: #0f172a;
+        color: #f1f5f9;
+
+        .header h1 {
+            background: linear-gradient(135deg, #f1f5f9 0%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+
+        .viewContainer {
+            background: #1e293b;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .customTable {
+            th {
+                background: #1e293b;
+                color: #94a3b8;
+                border-bottom-color: #334155;
+            }
+
+            td {
+                border-bottom-color: #334155;
+                color: #cbd5e1;
+            }
+
+            tr:hover td {
+                background-color: #2b3a4f;
+            }
+        }
+
+        .taskCard {
+            background: #1e293b;
+            border-color: #334155;
+
+            &:hover {
+                box-shadow: 0 12px 24px rgba(0, 0, 0, 0.4);
+            }
+        }
+
+        .progressWrapper .progressBar {
+            background: #334155;
+        }
+
+        .statusBadge.notStarted {
+            background: #334155;
+            color: #94a3b8;
+        }
+    }
+}

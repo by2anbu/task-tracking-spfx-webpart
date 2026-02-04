@@ -1,0 +1,166 @@
+@import '~@fluentui/react/dist/sass/References.scss';
+
+.taskTracking {
+  overflow: hidden;
+  padding: 1em;
+  color: "[theme:bodyText, default: #323130]";
+  color: var(--bodyText);
+  background-color: #f3f4f6; // Light gray background like Zoho
+  // min-height: 100vh; // causing layout issues?
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+
+  :global {
+    .ms-DetailsList {
+      background: white;
+      border: 1px solid #e0e0e0;
+      border-radius: 4px;
+    }
+
+    .ms-DetailsHeader {
+      background-color: #f9f9f9;
+      border-bottom: 1px solid #e0e0e0;
+      padding-top: 0;
+    }
+
+    .ms-DetailsHeader-cell {
+      font-weight: 600;
+      color: #666;
+      border-right: 1px solid #e0e0e0;
+      padding-left: 12px;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+
+    .ms-DetailsRow {
+      border-bottom: 1px solid #e0e0e0;
+
+      &:hover {
+        background-color: #f0f7ff; // Light blue hover
+      }
+    }
+
+    .ms-DetailsRow-cell {
+      border-right: 1px solid #e0e0e0;
+      display: flex;
+      align-items: center;
+      padding-left: 12px;
+
+      &:last-child {
+        border-right: none;
+      }
+    }
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border-radius: 8px;
+  }
+}
+
+// Status Badges
+.statusBadge {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px; // Rectangular with slight radius
+  font-size: 12px;
+  font-weight: 600;
+  text-align: center;
+  min-width: 80px;
+  color: white;
+
+  &.status_NotStarted {
+    background-color: #00b0ff; // Blue 'Open'
+  }
+
+  &.status_InProgress {
+    background-color: #ffb900; // Yellow/Orange 'In Progress'
+  }
+
+  &.status_Completed {
+    background-color: #107c10; // Green 'Closed'
+  }
+
+  &.status_OnHold {
+    background-color: #a80000; // Red
+  }
+}
+
+// Progress Bar
+.progressContainer {
+  width: 100%;
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  height: 6px;
+  overflow: hidden;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.progressFill {
+  height: 100%;
+  background-color: #107c10; // Green
+  border-radius: 10px;
+}
+
+
+// --- Full Screen & Header Hiding Overrides ---
+:global {
+  /* Hide Top Bar (Suite Nav) */
+  #SuiteNavWrapper {
+    display: none !important;
+  }
+  
+  /* Hide Side Bar (App Bar) */
+  .sp-appBar {
+    display: none !important;
+  }
+
+  /* Hide Page Header / Title Area */
+  [data-automation-id="pageHeader"], 
+  .ms-CommandBar, 
+  #spCommandBar,
+  .CanvasZone > div:first-child { 
+     /* This targets the title area in some layouts. Be careful. */
+  }
+
+  /* Maximize Canvas */
+  .CanvasZone {
+    max-width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+  }
+
+  .CanvasSection {
+    padding: 0 !important;
+  }
+  
+  /* Hide internal comments or footer */
+  .ms-feedback-container {
+    display: none !important;
+  }
+}
+
+.taskTracking {
+  /* Ensure our container takes full height/width */
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000; /* Sit on top of everything else */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden; /* Manage scrolling internally */
+  background: #f3f4f6;
+  
+  /* Reset font inside */
+  font-family: 'Segoe UI', 'Roboto', sans-serif;
+}

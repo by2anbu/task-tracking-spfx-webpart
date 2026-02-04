@@ -1,0 +1,25 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "task-tracking-system",
+    "environment": "spo",
+    "packageManager": "npm",
+    "componentType": "webpart",
+    "template": "react",
+    "componentName": "TaskTracking",
+    "componentDescription": "Task Tracking System for SMT",
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "16.20.2",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.9.1"
+    },
+    "version": "1.17.4",
+    "libraryName": "task-tracking-system",
+    "libraryId": "b758bedd-7902-4a1b-94cb-acf177ffef6d",
+    "solutionShortDescription": "task-tracking-system description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false
+  }
+}
