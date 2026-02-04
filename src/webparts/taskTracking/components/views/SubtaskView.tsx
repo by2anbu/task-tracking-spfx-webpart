@@ -6,6 +6,7 @@ import { VoiceControl } from '../common/VoiceControl';
 import { taskService } from '../../../../services/sp-service';
 import { ISubTask, IMainTask, ITaskCorrespondence } from '../../../../services/interfaces';
 import { LIST_SUB_TASKS } from '../../../../services/interfaces';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface ISubtaskViewProps {
     userEmail: string;
@@ -1804,7 +1805,7 @@ export const SubtaskView: React.FunctionComponent<ISubtaskViewProps> = (props) =
                                                         <strong>{msg.Author?.Title || msg.FromAddress}</strong>
                                                         <span style={{ marginLeft: 8 }}>{new Date(msg.Created).toLocaleString([], { hour: '2-digit', minute: '2-digit' })}</span>
                                                     </div>
-                                                    <div dangerouslySetInnerHTML={{ __html: msg.MessageBody }} style={{ fontSize: 13 }} />
+                                                    <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.MessageBody) }} style={{ fontSize: 13 }} />
                                                 </div>
                                             ))}
                                         </Stack>

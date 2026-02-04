@@ -38,6 +38,18 @@ export class TaskService {
     }
 
     /**
+     * Sanitizes values for OData filter queries to prevent SQL injection
+     * @param value - Value to sanitize
+     * @returns Sanitized value safe for OData queries
+     */
+    private sanitizeODataValue(value: string): string {
+        if (!value) return '';
+        // Escape single quotes by doubling them (OData standard)
+        return value.replace(/'/g, "''");
+    }
+
+
+    /**
      * Retrieves items from SharePoint using recursive paging.
      * This bypasses the 5000-item threshold for full data fetches.
      * @param query - The PnP query object (must support .getPaged())
@@ -180,7 +192,7 @@ Status: ${task.Status || 'Not Started'}`,
         const query = this._sp.web.lists.getByTitle(LIST_MAIN_TASKS).items
             .select("*,TaskAssignedTo/Title,TaskAssignedTo/EMail")
             .expand("TaskAssignedTo")
-            .filter(`TaskAssignedTo/EMail eq '${email}'`)
+            .filter(`TaskAssignedTo/EMail eq '${this.sanitizeODataValue(email)}'`)
             .orderBy("Created", false);
 
         const items = await this.getAllItemsPaged<any>(query);
@@ -253,7 +265,7 @@ Status: ${task.Status || 'Not Started'}`,
         const query = this._sp.web.lists.getByTitle(LIST_SUB_TASKS).items
             .select("*,Admin_Job_ID,AttachmentFiles,TaskAssignedTo/Title,TaskAssignedTo/EMail,TaskAssignedTo/Id")
             .expand("AttachmentFiles,TaskAssignedTo")
-            .filter(`TaskAssignedTo/EMail eq '${email}'`);
+            .filter(`TaskAssignedTo/EMail eq '${this.sanitizeODataValue(email)}'`);
 
         return this.getAllItemsPaged<ISubTask>(query);
     }
@@ -1271,7 +1283,7 @@ Status: ${subTask.TaskStatus || 'Not Started'}
     public async getWorkflowByTitle(title: string): Promise<IWorkflow | undefined> {
         try {
             const items = await this._sp.web.lists.getByTitle(LIST_WORKFLOWS).items
-                .filter(`Title eq '${title}'`)
+                .filter(`Title eq '${this.sanitizeODataValue(title)}'`)
                 .orderBy("Created", false)
                 .top(1)();
 
@@ -1318,12 +1330,12 @@ Status: ${subTask.TaskStatus || 'Not Started'}
             const notifications = await this.getGlobalNotifications();
             const allIds = notifications.map(n => n.Id);
             const STORAGE_KEY = 'task_tracking_dismissed_notifications';
-            const stored = localStorage.getItem(STORAGE_KEY);
+            const stored = sessionStorage.getItem(STORAGE_KEY);
             let dismissedIds: number[] = [];
             if (stored) dismissedIds = JSON.parse(stored);
 
             const uniqueIds = Array.from(new Set([...dismissedIds, ...allIds]));
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueIds));
+            sessionStorage.setItem(STORAGE_KEY, JSON.stringify(uniqueIds));
         } catch (e) {
             console.warn("[TaskService] markAllNotificationsAsRead Error:", e);
         }

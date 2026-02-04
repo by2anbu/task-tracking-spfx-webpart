@@ -14,6 +14,7 @@ import { taskService } from '../../../../services/sp-service';
 import { ITaskCorrespondence } from '../../../../services/interfaces';
 import styles from './GlobalNotificationBell.module.scss';
 import { Bell, CheckCheck, X, Trash2, RefreshCcw, MailOpen, User, Clock } from 'lucide-react';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface IGlobalNotificationBellProps {
     onNotificationClick: (taskId: number, isSubtask: boolean, parentTaskId?: number, initialTab?: string) => void;
@@ -32,7 +33,7 @@ export const GlobalNotificationBell: React.FC<IGlobalNotificationBellProps> = (p
 
     // Load dismissed IDs from local storage
     React.useEffect(() => {
-        const stored = localStorage.getItem(STORAGE_KEY);
+        const stored = sessionStorage.getItem(STORAGE_KEY);
         if (stored) {
             try {
                 setDismissedIds(JSON.parse(stored));
@@ -89,7 +90,7 @@ export const GlobalNotificationBell: React.FC<IGlobalNotificationBellProps> = (p
         if (e) e.stopPropagation();
         const updated = dismissedIds.indexOf(id) === -1 ? [...dismissedIds, id] : dismissedIds;
         setDismissedIds(updated);
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
+        sessionStorage.setItem(STORAGE_KEY, JSON.stringify(updated));
     };
 
     const clearAll = async () => {
@@ -97,7 +98,7 @@ export const GlobalNotificationBell: React.FC<IGlobalNotificationBellProps> = (p
         await taskService.markAllNotificationsAsRead(userEmail);
 
         // Refresh local state from local storage (which the service updated)
-        const stored = localStorage.getItem(STORAGE_KEY);
+        const stored = sessionStorage.getItem(STORAGE_KEY);
         if (stored) setDismissedIds(JSON.parse(stored));
     };
 
@@ -201,7 +202,7 @@ export const GlobalNotificationBell: React.FC<IGlobalNotificationBellProps> = (p
                                         </div>
                                         <div
                                             className={styles.messageBody}
-                                            dangerouslySetInnerHTML={{ __html: item.MessageBody }}
+                                            dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.MessageBody) }}
                                         />
                                         <div className={styles.metaInfo}>
                                             <span className={styles.author}>

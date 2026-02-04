@@ -24,6 +24,7 @@ import {
 import styles from './SubtaskDashboard.module.scss';
 import { taskService } from '../../../../services/sp-service';
 import { ISubTask, IMainTask } from '../../../../services/interfaces';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface ISubtaskDashboardProps {
     userEmail: string;
@@ -840,7 +841,7 @@ export const SubtaskDashboard: React.FunctionComponent<ISubtaskDashboardProps> =
                                                     <strong>{msg.Author?.Title || msg.FromAddress}</strong>
                                                     <span style={{ marginLeft: 8 }}>{new Date(msg.Created).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span>
                                                 </div>
-                                                <div dangerouslySetInnerHTML={{ __html: msg.MessageBody }} style={{ fontSize: 12 }} />
+                                                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.MessageBody) }} style={{ fontSize: 12 }} />
                                             </div>
                                         ))}
                                     </Stack>

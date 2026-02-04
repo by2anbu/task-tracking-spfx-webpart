@@ -4,6 +4,7 @@ import { taskService } from '../../../../services/sp-service';
 import { IMainTask, ISubTask, LIST_MAIN_TASKS, LIST_SUB_TASKS } from '../../../../services/interfaces';
 import { WorkflowDesigner } from './WorkflowDesigner';
 import styles from './TaskDetail.module.scss';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface ITaskDetailProps {
     mainTask: IMainTask;
@@ -920,7 +921,7 @@ export const TaskDetail: React.FunctionComponent<ITaskDetailProps> = ({ mainTask
                                             </span>
                                         </div>
                                         <div style={{ fontWeight: 600, fontSize: 13, marginBottom: 5 }}>{item.Title}</div>
-                                        <div dangerouslySetInnerHTML={{ __html: item.MessageBody }} style={{ fontSize: 13, color: '#333', lineHeight: '1.5' }} />
+                                        <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.MessageBody) }} style={{ fontSize: 13, color: '#333', lineHeight: '1.5' }} />
                                     </div>
                                 ))
                             )}
@@ -1099,7 +1100,7 @@ export const TaskDetail: React.FunctionComponent<ITaskDetailProps> = ({ mainTask
                                                                     </div>
                                                                     <span style={{ color: '#999', fontSize: 11 }}>{formatDate(msg.Created)}</span>
                                                                 </div>
-                                                                <div dangerouslySetInnerHTML={{ __html: msg.MessageBody }} style={{ fontSize: 14, color: '#333', lineHeight: '1.7' }} />
+                                                                <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.MessageBody) }} style={{ fontSize: 14, color: '#333', lineHeight: '1.7' }} />
                                                             </div>
                                                         ))}
                                                     </Stack>

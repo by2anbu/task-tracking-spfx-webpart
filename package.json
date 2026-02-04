@@ -1,7 +1,13 @@
 {
   "name": "task-tracking-system",
-  "version": "0.0.1",
+  "version": "1.0.0",
+  "description": "Advanced Task Tracking & Gantt Orchestrator for SharePoint",
+  "author": "Anbarasan <anbarasan.g@gmail.com>",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/byzanbu/task-tracking-spfx-webpart.git"
+  },
   "engines": {
     "node": ">=16.13.0 <19.0.0"
   },
@@ -23,6 +29,7 @@
     "@pnp/logging": "^4.17.0",
     "@pnp/queryable": "^4.17.0",
     "@pnp/sp": "^4.17.0",
+    "dompurify": "^3.3.1",
     "framer-motion": "^6.5.1",
     "html-to-image": "^1.11.13",
     "lucide-react": "^0.562.0",
@@ -41,6 +48,7 @@
     "@microsoft/sp-build-web": "1.18.0",
     "@microsoft/sp-module-interfaces": "1.18.0",
     "@rushstack/eslint-config": "2.5.1",
+    "@types/dompurify": "^3.2.0",
     "@types/react": "17.0.45",
     "@types/react-dom": "17.0.17",
     "@types/webpack-env": "~1.15.2",

@@ -8,6 +8,7 @@ import {
 } from 'office-ui-fabric-react';
 import { taskService } from '../../../../services/sp-service';
 import { IMainTask, ISubTask } from '../../../../services/interfaces';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface ICorrespondenceViewProps {
     userEmail: string;
@@ -61,7 +62,7 @@ export class CorrespondenceView extends React.Component<ICorrespondenceViewProps
     public async componentDidMount(): Promise<void> {
         // Load Read Status from LocalStorage
         try {
-            const stored = localStorage.getItem('task_tracking_dismissed_notifications');
+            const stored = sessionStorage.getItem('task_tracking_dismissed_notifications');
             if (stored) {
                 const ids = JSON.parse(stored);
                 this.setState({ readIds: ids });
@@ -622,7 +623,7 @@ export class CorrespondenceView extends React.Component<ICorrespondenceViewProps
                             <hr />
                             <div className="email-body-content"
                                 style={{ maxHeight: 300, overflowY: 'auto', padding: 10, background: '#f9f9f9', border: '1px solid #eaeaea' }}
-                                dangerouslySetInnerHTML={{ __html: selectedItem.MessageBody || '' }}
+                                dangerouslySetInnerHTML={{ __html: sanitizeHtml(selectedItem.MessageBody || '') }}
                             />
                             <hr />
                             <p><strong>Attachments:</strong></p>

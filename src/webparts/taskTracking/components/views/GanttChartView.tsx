@@ -6,6 +6,7 @@ import { IMainTask, ISubTask } from '../../../../services/interfaces';
 import { taskService } from '../../../../services/sp-service';
 import * as XLSX from 'xlsx';
 import { toPng } from 'html-to-image';
+import { sanitizeHtml } from '../../../../utils/sanitize';
 
 export interface IGanttChartViewProps {
     mainTasks: IMainTask[];
@@ -1164,7 +1165,7 @@ export const GanttChartView: React.FC<IGanttChartViewProps> = (props) => {
                                     comments={
                                         <div style={{ marginTop: 8 }}>
                                             <div style={{ fontWeight: 600 }}>{msg.Title}</div>
-                                            <div dangerouslySetInnerHTML={{ __html: msg.MessageBody }} />
+                                            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(msg.MessageBody) }} />
                                         </div>
                                     }
                                     activityIcon={<Icon iconName="Message" />}

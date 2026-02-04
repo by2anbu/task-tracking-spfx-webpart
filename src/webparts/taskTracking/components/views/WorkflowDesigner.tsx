@@ -76,6 +76,8 @@ import styles from './WorkflowDesigner.module.scss';
 import { taskService } from '../../../../services/sp-service';
 import { LIST_MAIN_TASKS, LIST_SUB_TASKS } from '../../../../services/interfaces';
 import { NodePropertiesDialog } from './NodePropertiesDialog';
+import { sanitizeHtml } from '../../../../utils/sanitize';
+
 
 const iconMapping: { [key: string]: any } = {
     'Main Task': Layers,
@@ -2070,7 +2072,7 @@ const WorkflowDesignerInternal: React.FC<IWorkflowDesignerProps> = (props) => {
                             <div style={{ fontSize: '11px', color: '#64748b', marginBottom: '4px' }}>
                                 <strong>{h.Author?.Title}</strong> • {new Date(h.Created).toLocaleString()}
                             </div>
-                            <div dangerouslySetInnerHTML={{ __html: h.MessageBody }} style={{ fontSize: '13px' }} />
+                            <div dangerouslySetInnerHTML={{ __html: sanitizeHtml(h.MessageBody) }} style={{ fontSize: '13px' }} />
                         </div>
                     ))}
                     {clarificationHistory.length === 0 && !isClarificationLoading && <div style={{ textAlign: 'center', color: '#64748b', padding: 20 }}>No history.</div>}
